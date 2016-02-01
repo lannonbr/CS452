@@ -1,9 +1,8 @@
-Common files:
+Benjamin Lannon
+February 1
 
-webgl-utils.js: standard utilities from google to set up a webgl context
-
-MV.js: our matrix/vector package. Documentation on website
-
-initShaders.js: functions to initialize shaders in the html file
-
-initShaders2.js: functions to initialize shaders that are in separate files
+For my main shape, I decided to create a red gem with 5 vertices. Up next, I created a two
+reflected pentagons that sit over the gem with slightly lighter and darker shades of red to give
+a sense of flat light shading. All 3 of these shapes use TRIANGLE_FAN render. The last shape
+which is an ellipse with a origin of (0, -1), so only half of it is actually displayed on the screen.
+To render it, I used the parametric equations of an ellipse and it used a LINE_LOOP rendering.  
