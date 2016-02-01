@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <title>Lab 1 - Lannonbr</title>
+
+  <script id="vertex-shader" type="x-shader/x-vertex">
+    attribute vec4 myPos;
+
+    void main() {
+      gl_PointSize = 1.0;
+      gl_Position = myPos;
+    }
+  </script>
+
+  <script id="fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+    uniform vec4 fragColor;
+
+    void main() {
+      gl_FragColor = fragColor;
+    }
+  </script>
+
+  <script type="text/javascript" src="Common/webgl-utils.js"></script>
+  <script type="text/javascript" src="Common/InitShaders.js"></script>
+  <script type="text/javascript" src="Common/MV.js"></script>
+
+  <script src="lab1.js"></script>
+  <!-- <script src="SimpleCircle.js"></script> -->
+
+  <style media="screen">
+    #gl-canvas {
+      margin: 0px 220px;
+      border: 2px solid black;
+    }
+    h1 {text-align: center;}
+    main {
+      width: 960px;
+      margin: 0 auto;
+    }
+  </style>
+
+</head>
+
+<body onload="drawShapes()">
+  <main>
+    <h1>Lab 1</h1>
+    <h3>Benjamin Lannon</h1>
+    <canvas id="gl-canvas" width="512" height="512"></canvas>
+  </main>
+</body>
+
+</html>
