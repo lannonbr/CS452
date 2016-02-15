@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Lab 2 - Lannonbr</title>
+
+    <script id="vertex-shader" type="x-shader/x-vertex">
+      attribute vec4 myPos;
+      precision mediump float;
+      uniform vec2 displacement;
+      uniform mat3 RotMatrix;
+      uniform mat3 TransMatrix;
+
+      void main() {
+        vec3 vi, vf;
+
+        vi[0] = myPos.x + displacement.x;
+        vi[1] = myPos.y + displacement.y;
+        vi[2] = 1.0;
+
+        vf = TransMatrix * (RotMatrix * vi);
+
+        gl_PointSize = 5.0;
+        gl_Position.x = vf[0];
+        gl_Position.y = vf[1];
+        gl_Position.z = 0.0;
+        gl_Position.w = 1.0;
+      }
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+      precision mediump float;
+      uniform vec4 fragColor;
+
+      void main() {
+        gl_FragColor = fragColor;
+      }
+    </script>
+
+    <script type="text/javascript" src="../Common/webgl-utils.js"></script>
+    <script type="text/javascript" src="../Common/InitShaders.js"></script>
+    <script type="text/javascript" src="../Common/MV.js"></script>
+
+    <script src="lab2.js"></script>
+    <style media="screen">
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body onload="init()" onkeydown="keyDown(event)">
+    <h1>Lab 2</h1>
+    <h2>Benjamin Lannon</h2>
+
+    <canvas id="gl-canvas" width="512" height="512" onclick="mouseClicked(event)"></canvas>
+
+    <h3>Speed:</h3>
+    <button type="button" onclick="increaseSpeed()" name="speed-increase">Increase</button>
+    <button type="button" onclick="decreaseSpeed()" name="speed-decrease">Decrease</button>
+
+    <h3>Rotation:</h3>
+    <button type="button" onclick="startRotation()" name="speed-start">Start</button>
+    <button type="button" onclick="stopRotation()" name="speed-stop">Stop</button>
+  </body>
+</html>
