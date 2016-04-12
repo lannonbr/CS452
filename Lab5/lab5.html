@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+  attribute vec4 vertexPosition;
+  attribute vec2 textureCoordinate;
+  varying vec2 fTextureCoordinate;
+  uniform float alpha, beta, gamma;
+  uniform float scaleX, scaleY;
+  uniform float transX, transY;
+
+  mat4 RotMatX = mat4(1, 0, 0, 0,
+    0, cos(alpha), -sin(alpha), 0,
+    0, sin(alpha), cos(alpha), 0,
+    0, 0, 0, 1);
+
+  mat4 RotMatY = mat4(cos(beta), 0, -sin(beta), 0,
+    0, 1, 0, 0,
+    sin(beta), 0, cos(beta), 0,
+    0, 0, 0, 1);
+
+  mat4 RotMatZ = mat4(cos(gamma), -sin(gamma), 0, 0,
+    sin(gamma), cos(gamma), 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1);
+
+  mat4 ScaleMat = mat4(scaleX, 0, 0, 0,
+    0, scaleY, 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1);
+
+  mat4 TransMat = mat4(1, 0, 0, 0,
+    0, 1, 0, 0,
+    0, 0, 1, 0,
+    transX, transY, 0, 1);
+
+  void main() {
+    fTextureCoordinate = textureCoordinate;
+    gl_Position = ScaleMat * RotMatZ * RotMatY * RotMatX * TransMat * vertexPosition;
+  }
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+  precision mediump float;
+  varying vec2 fTextureCoordinate;
+  uniform sampler2D texMap0;
+
+  void main() {
+    gl_FragColor = texture2D(texMap0, fTextureCoordinate);
+  }
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/InitShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="lab5.js"></script>
+</head>
+
+<body onload = "initGL()" onkeydown="keyPress(event)">
+  <canvas id="canvas" width="512" height="512"></canvas>
+  <img src="image.jpg" id="lab5Img" hidden/>
+</body>
+</html>
